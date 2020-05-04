@@ -1,8 +1,8 @@
-#include<sys/socket.h>
 #include<stdio.h>
-#include<netinet/in.h>
 #include<string.h>
 #include<unistd.h>
+#include<sys/socket.h>
+#include<netinet/in.h>
 #include<arpa/inet.h>
 
 class Sock{
@@ -12,19 +12,18 @@ public:
     void create_sock();
     void accept_connect();
     void echo(int client_fd);
-    int close_sock();
+
 private:
     int serfd,confd;
     int port;
     int max_size = 1024;
     struct sockaddr_in seraddr,conaddr;
-
 };
 
 Sock::Sock(int x){
     port = x;
-    memset(&seraddr,0,sizeof(seraddr));
-    memset(&conaddr,0,sizeof(conaddr));
+    //memset(&seraddr,0,sizeof(seraddr));
+    //memset(&conaddr,0,sizeof(conaddr));
 }
 Sock::~Sock(){
     close(serfd);
@@ -69,7 +68,6 @@ void Sock::echo(int client_fd){
         strcpy(send_buf,rec_buf);
         send(client_fd,send_buf,strlen(send_buf),0);
     }
-
 }
 
 int main()
