@@ -1,7 +1,3 @@
-//
-// 多线程版 echo 服务
-// Created by peng.tan on 17/10/15.
-//
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>

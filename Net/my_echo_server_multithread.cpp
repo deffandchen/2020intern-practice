@@ -4,6 +4,9 @@
 #include<sys/socket.h>
 #include<netinet/in.h>
 #include<arpa/inet.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<thread>
 
 class Sock{
 public:
@@ -11,8 +14,9 @@ public:
     ~Sock();
     void create_sock();
     void accept_connect();
-    void echo(int client_fd);
-
+    static void echo(int c_fd);   //类内成员作为静态变量，只需在类内定义时加上static，
+                                  //在类外声明时不用加static
+    //static void* echo(void * c_fd);//使用pthread_create创建线程时使用该函数
 private:
     int serfd,confd;
     int port;
@@ -54,22 +58,41 @@ void Sock::accept_connect(){
             perror("accept error!");
         }
         printf("connect id:%s,port:%d\n",inet_ntoa(conaddr.sin_addr),ntohs(conaddr.sin_port));
-        echo(confd);
-    }
 
+        //pthread_t t;
+        //pthread_create(&t,NULL,&echo,&confd);  //使用pthread创建线程
+        
+        std::thread t1(echo,confd); //使用c++11 thread库创建线程
+        t1.detach();
+    }
 }
 
-void Sock::echo(int client_fd){
-    char rec_buf[max_size];
-    char send_buf[max_size];
-    while(recv(client_fd,rec_buf,max_size,0)>0)
+//类内成员作为静态变量，只需在类内定义时加上static，在类外声明时不用加static
+void Sock::echo(int c_fd){
+    int client_fd = c_fd;
+    char rec_buf[1024];
+    char send_buf[1024];
+    while(recv(client_fd,rec_buf,1024,0)>0)
     {
         printf("from client:%s\n",rec_buf);
         strcpy(send_buf,rec_buf);
         send(client_fd,send_buf,strlen(send_buf),0);
     }
 }
-
+//使用pthread_create创建线程时使用该函数
+/*
+void* Sock::echo(void* c_fd){
+    int client_fd = *(int *)c_fd;
+    char rec_buf[1024];
+    char send_buf[1024];
+    while(recv(client_fd,rec_buf,1024,0)>0)
+    {
+        printf("from client:%s\n",rec_buf);
+        strcpy(send_buf,rec_buf);
+        send(client_fd,send_buf,strlen(send_buf),0);
+    }
+}
+*/
 int main()
 {
     Sock my_ser(1234);

@@ -1,10 +1,3 @@
-/* 
- * File:   Server.c
- * Author: root
- *
- * Created on 2012年6月20日, 下午1:29
- */
- 
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>

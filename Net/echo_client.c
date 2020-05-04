@@ -1,10 +1,3 @@
-/* 
- * File:   Client.c
- * Author: root
- *
- * Created on 2012年6月20日, 下午1:30
- */
- 
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/socket.h>
