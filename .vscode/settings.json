@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "fstream": "c",
+        "iosfwd": "c",
+        "istream": "c",
+        "limits": "c",
+        "shared_mutex": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "exception": "c",
+        "new": "c",
+        "ostream": "c",
+        "stdc++.h": "c",
+        "functional": "cpp"
+    }
+}
