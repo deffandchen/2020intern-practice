@@ -70,9 +70,10 @@ void Sock::accept_connect(){
 //类内成员作为静态变量，只需在类内定义时加上static，在类外声明时不用加static
 void Sock::echo(int c_fd){
     int client_fd = c_fd;
-    char rec_buf[1024];
-    char send_buf[1024];
-    while(recv(client_fd,rec_buf,1024,0)>0)
+    int buf_len = 1024;
+    char rec_buf[buf_len];
+    char send_buf[buf_len];
+    while(recv(client_fd,rec_buf,buf_len,0)>0)
     {
         printf("from client:%s\n",rec_buf);
         strcpy(send_buf,rec_buf);
@@ -83,9 +84,10 @@ void Sock::echo(int c_fd){
 /*
 void* Sock::echo(void* c_fd){
     int client_fd = *(int *)c_fd;
-    char rec_buf[1024];
-    char send_buf[1024];
-    while(recv(client_fd,rec_buf,1024,0)>0)
+    int buf_len = 1024;
+    char rec_buf[buf_len];
+    char send_buf[buf_len];
+    while(recv(client_fd,rec_buf,buf_len,0)>0)
     {
         printf("from client:%s\n",rec_buf);
         strcpy(send_buf,rec_buf);
