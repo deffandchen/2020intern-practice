@@ -11,12 +11,11 @@ void buildHeap(int a[],int i,int n)
         child = child_left(i);
         if(child < n-1 && (a[child] < a[child+1])) 
             child++;
-        if(tmp < a[child])
-            a[i] = a[child];
+        if(a[i] < a[child])
+            swap(a[i],a[child]);
         else
             break;
     }
-    a[i] = tmp;
 }
 
 int main()
