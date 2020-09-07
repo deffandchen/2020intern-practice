@@ -37,10 +37,10 @@ int median3(int A[], int left, int right)
 
 void Qsort(int A[], int left, int right)
 {
-    if(left + 3 < right)
+    if(left + 3 < right-1)
     {
-        int i = left, j = right -1;
-        int pivot = median3(A, left, right);
+        int i = left, j = right -2;
+        int pivot = median3(A, left, right-1);
         for(;;)
         {
             while(A[ ++i ] < pivot) {}
@@ -50,30 +50,27 @@ void Qsort(int A[], int left, int right)
             else 
                 break;
         }
-        for(int l=0; l <= right; l++)
-            std::cout << A[l] << " ";
-        std::cout<<std::endl;
 
-        swap(&A[i], &A[right-1]);
+        swap(&A[i], &A[right-2]);
         /*
         for(int l=0; l <= right; l++)
             std::cout << A[l];
         std::cout<<std::endl;
         */
-        Qsort(A,left,i-1);
+        Qsort(A,left,i);
         Qsort(A,i+1,right);
     }
     else
-        InsetSort(A+left,right-left+1);
+        InsetSort(A+left,right-left);
 }
 
 int main()
 {
-    int A[5] = {1,4,3,6,2};
+    int A[6] = {6,5,4,3,2,1};
     //std::cout << median3(A,0,4) << std::endl;
     //InsetSort(A,5);
-    Qsort(A,0,4);
-    for(int l=0; l < 5; l++)
+    Qsort(A,0,6);
+    for(int l=0; l < 6; l++)
         std::cout << A[l] << " ";
     std::cout<<std::endl;
 }
